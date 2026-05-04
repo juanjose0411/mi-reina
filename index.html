@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Para ti ❤️</title>
+<title>Para Mi Princesa ❤️</title>
 
 <style>
 body {
@@ -126,8 +126,11 @@ function animate() {
 
         let scale = Math.min(window.innerWidth, window.innerHeight) / 50;
 
-        let posX = window.innerWidth / 2 + x * scale;
-        let posY = window.innerHeight / 2 + y * scale;
+        let offsetX = -10;
+        let offsetY = 0;
+        
+        let posX = window.innerWidth / 2 + x * scale + offsetX;
+        let posY = window.innerHeight / 2 + y * scale + offsetY;
 
         w.el.style.left = posX + "px";
         w.el.style.top = posY + "px";
