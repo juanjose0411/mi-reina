@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Para ti ❤️</title>
+
+<style>
+body {
+    margin: 0;
+    background-color: #000;
+    overflow: hidden;
+    font-family: Arial, sans-serif;
+}
+
+/* Botón inicio */
+.start {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #ff4d6d;
+    color: white;
+    padding: 15px 25px;
+    border-radius: 30px;
+    font-size: 18px;
+    text-align: center;
+    cursor: pointer;
+    box-shadow: 0 0 20px #ff4d6d;
+}
+
+/* Palabras */
+.word {
+    position: absolute;
+    color: #ff4d6d;
+    font-size: 14px;
+    opacity: 0;
+    transition: opacity 1.5s ease;
+}
+
+/* Aparecen */
+.word.show {
+    opacity: 1;
+}
+
+/* Texto centro */
+.center {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 22px;
+    text-align: center;
+    opacity: 0;
+    animation: fadeCenter 3s ease forwards;
+    pointer-events: none;
+}
+
+@keyframes fadeCenter {
+    to { opacity: 1; }
+}
+</style>
+</head>
+
+<body>
+
+<div class="start" onclick="start()">Toca aquí ❤️</div>
+
+<audio id="music" loop>
+    <!-- 🔥 CAMBIA ESTE LINK POR LA CANCIÓN QUE QUIERAS -->
+    <source src="cancion.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+const total = 60;
+const words = [];
+
+function start() {
+    document.querySelector(".start").style.display = "none";
+
+    // Música
+    document.getElementById("music").play();
+
+    // Texto centro
+    const center = document.createElement("div");
+    center.className = "center";
+    center.innerText = "Mi Princesa ❤️";
+    document.body.appendChild(center);
+
+    // Crear palabras
+    for (let i = 0; i < total; i++) {
+        let word = document.createElement("div");
+        word.className = "word";
+
+        const frases = ["Te amo", "Mi niña ❤️", "Eres mi todo"];
+        word.innerText = frases[Math.floor(Math.random() * frases.length)];
+
+        document.body.appendChild(word);
+
+        words.push({
+            el: word,
+            offset: (i / total) * Math.PI * 2
+        });
+
+        setTimeout(() => {
+            word.classList.add("show");
+        }, i * 120);
+    }
+
+    animate();
+}
+
+// Animación
+function animate() {
+    let time = Date.now() * 0.0004;
+
+    words.forEach(w => {
+        let t = time + w.offset;
+
+        let x = 16 * Math.pow(Math.sin(t), 3);
+        let y = -(13 * Math.cos(t)
+            - 5 * Math.cos(2*t)
+            - 2 * Math.cos(3*t)
+            - Math.cos(4*t));
+
+        let scale = Math.min(window.innerWidth, window.innerHeight) / 50;
+
+        let posX = window.innerWidth / 2 + x * scale;
+        let posY = window.innerHeight / 2 + y * scale;
+
+        w.el.style.left = posX + "px";
+        w.el.style.top = posY + "px";
+    });
+
+    requestAnimationFrame(animate);
+}
+</script>
+
+</body>
+</html>
