@@ -129,7 +129,7 @@ function animate() {
         let offsetX = window.innerWidth < 500 ? -15 : 0;
         let offsetY = 0;
         
-        let posX = window.innerWidth / 2 + x * scale + offsetX;
+        let posX = window.innerWidth / 2 + x * scale - 15;
         let posY = window.innerHeight / 2 + y * scale + offsetY;
 
         w.el.style.left = posX + "px";
